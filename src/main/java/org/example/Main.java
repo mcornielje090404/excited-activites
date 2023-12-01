@@ -9,5 +9,7 @@ public class Main {
         TestClass testClass = new TestClass();
 
         testClass.printFromFn();
+
+        System.out.println("testing another commit");
     }
 }
