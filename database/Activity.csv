@@ -1,0 +1,2 @@
+id,baseCost,title,description,location,activityDate,duration,insuranceRequired,insuranceCost,activityCode
+153b43c3-6935-4dae-a94a-1822315a9bcd,2000,Activity,Description,Location,2024-01-04T18:08:46+0000,60,false,200,TST-01
