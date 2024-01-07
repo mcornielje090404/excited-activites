@@ -5,11 +5,5 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
-
-        TestClass testClass = new TestClass();
-
-        testClass.printFromFn();
-
-        System.out.println("testing another commit");
     }
 }
