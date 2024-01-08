@@ -18,6 +18,10 @@ public class Activity extends DatabaseTable<Activity> {
         this.getEntityById("Activity", id);
     }
 
+    public Activity(String[] csvData) {
+        this.createObject(csvData);
+    }
+
     @Override
     public Activity createObject(String[] csvData) {
         this.setId(csvData[0]);

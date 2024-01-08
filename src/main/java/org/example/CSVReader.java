@@ -74,12 +74,10 @@ public class CSVReader {
 
         try (Scanner fileReader = new Scanner(new File("database/" + table + ".csv"))) {
             fileReader.useDelimiter(",");
-            String line = null;
+            fileReader.nextLine();
 
             while (fileReader.hasNextLine()) {
-                if ((line = fileReader.nextLine()) != null) {
-                    tableData.add(line.split(","));
-                }
+                tableData.add(fileReader.nextLine().split(","));
             }
         } catch (FileNotFoundException e) {
             return tableData;
