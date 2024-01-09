@@ -19,6 +19,12 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         this.fetchBookings(id);
     }
 
+    public Itinerary() {
+        this.setId(this.dbClient.getUniqueUUID());
+        this.bookings = new ArrayList<>();
+        this.numOfAttendees = 0;
+    }
+
     @Override
     public Itinerary createObject(String[] csvData) {
         this.setId(csvData[0]);
@@ -47,6 +53,19 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         this.bookings = bookings;
     }
 
+    public void addBooking(Booking booking) {
+        this.bookings.add(booking);
+    }
+
+    public ArrayList<Activity> getAllActivities() {
+        ArrayList<Activity> activities = new ArrayList<>();
+
+        for (Booking booking : this.bookings) {
+            activities.add(booking.getActivity());
+        }
+
+        return activities;
+    }
 
     public String getItineraryReference() {
         return this.itineraryReference;

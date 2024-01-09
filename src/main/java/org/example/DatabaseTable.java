@@ -14,13 +14,8 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class DatabaseTable<T> implements DatabaseTableInterface<T> {
-    final private DatabaseManager dbClient = new DatabaseManager();
+    final protected DatabaseManager dbClient = new DatabaseManager();
     private String id;
-
-    protected T createEntity(T entity) {
-        this.setId(this.dbClient.getUniqueUUID());
-        return entity;
-    }
 
     T getEntityById(String table, String id) {
         CSVReader csvReader = new CSVReader();
