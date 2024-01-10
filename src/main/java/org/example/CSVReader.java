@@ -49,26 +49,6 @@ public class CSVReader {
         return nestedEntities;
     }
 
-    public String[] getEntityDataByColumn(String parentTable, String childTable, String parentId, String parentIdColumn) {
-        String[] parentHeaders = this.getHeaders(parentTable);
-        int childIdIndex = Arrays.stream(parentHeaders).toList().indexOf(parentIdColumn);
-
-        String[] childHeaders = this.getHeaders(childTable);
-        int idIndex = Arrays.stream(childHeaders).toList().indexOf("id");
-
-        String[] parentRow = this.getEntityDataById(parentTable, parentId);
-
-        ArrayList<String[]> tableData = this.readTable(childTable);
-
-        for (String[] data : tableData) {
-            if (data[idIndex].equals(parentRow[childIdIndex])) {
-                return data;
-            }
-        }
-
-        return null;
-    }
-
     public ArrayList<String[]> readTable(String table) {
         ArrayList<String[]> tableData = new ArrayList<>();
 

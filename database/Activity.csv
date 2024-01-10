@@ -1,12 +1,7 @@
 id,baseCost,title,description,location,activityDate,duration,insuranceRequired,insuranceCost,activityCode
-153b43c3-6935-4dae-a94a-1822315a9bcd,2000,Activity,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-37953509-f9f5-48d8-9f9c-7f34b23b138b,2000,Another Activity,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-636df7a8-9b98-4bbf-9759-3c433f2d8de5,2000,2,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-301b9e68-5863-4969-aba3-751179ceae7c,2000,3,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-d02672ce-e4bc-4096-97a5-dd21ba5318c3,2000,4,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-020a070c-33e6-4c60-9163-8fbc59a7bf2e,2000,5,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-6bd97f5f-6803-4578-bf7d-11e1317b66b4,2000,6,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-7a4b895c-72f6-4ca5-9810-60e1553e07ae,2000,7,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-f627fdf5-b1a3-48ad-b838-3cec60e8e5e5,2000,8,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-5eec90b6-62fe-4074-b37f-4d05a2fead4d,2000,9,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
-bbc4ee86-2f9d-49e6-ac40-0912958bdd17,2000,10,Description,Location,2024-01-17T22:27:59+00:00,60,false,200,TST-01
+153b43c3-6935-4dae-a94a-1822315a9bcd,1000,Art Exhibition by Paul Dyson,Attenborough Nature Centre will be exhibiting the art of Paul Dyson during January. The exhibition is located in the corridor at Attenborough Nature Centre and will be available during standard opening hours. A proportion of all sales will be donated to the Nottinghamshire Wildlife Trust., Attenborough Nature Reserve,2024-01-10T09:00:00+00:00,420,false,1000,ART-01
+37953509-f9f5-48d8-9f9c-7f34b23b138b,3000,SAS-style assault course,Nullam iaculis risus eget porttitor pulvinar nunc tortor consectetur nisi a pretium turpis diam sit amet ex. Morbi nec accumsan.,Middlesbrough,2024-01-22T14:00:00+00:00,120,false,3000,SAS-01
+636df7a8-9b98-4bbf-9759-3c433f2d8de5,2250,Cooking class,Nullam iaculis risus eget porttitor pulvinar nunc tortor consectetur nisi a pretium turpis diam sit amet ex. Morbi nec accumsan.,Location,2024-02-02T10:00:00+00:00,60,false,200,CKC-01
+301b9e68-5863-4969-aba3-751179ceae7c,2155,Drum lesson,Nullam iaculis risus eget porttitor pulvinar nunc tortor consectetur nisi a pretium turpis diam sit amet ex. Morbi nec accumsan.,Location,2024-01-22T12:00:00+00:00,60,false,200,DRM-01
+a47bf4a3-720b-4777-828e-f23b75583645,1345,Dance class,Nullam iaculis risus eget porttitor pulvinar nunc tortor consectetur nisi a pretium turpis diam sit amet ex. Morbi nec accumsan.,Location,2024-01-27T20:00:00+00:00,60,false,200,DNC-01
+1a1f5e7a-a38c-4516-b41e-074fabd91df7,1345,Robotics,Nullam iaculis risus eget porttitor pulvinar nunc tortor consectetur nisi a pretium turpis diam sit amet ex. Morbi nec accumsan.,Location,2024-01-20T12:00:00+00:00,60,false,200,RBT-01
