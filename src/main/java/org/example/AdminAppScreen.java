@@ -14,7 +14,7 @@ public class AdminAppScreen {
     Container contentPane;
     SpringLayout layout = new SpringLayout();
     SwitchContentPane mainMenuButtonActionListener;
-    CustomerAppScreen customerAppScreen =  new CustomerAppScreen();
+    CustomerAppScreen customerAppScreen = new CustomerAppScreen();
 
     public AdminAppScreen(JFrame frame, Container contentPane, SwitchContentPane mainMenuButtonActionListener) {
         this.frame = frame;

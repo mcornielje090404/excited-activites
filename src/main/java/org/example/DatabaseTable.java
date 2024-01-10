@@ -4,10 +4,6 @@ public class DatabaseTable<T> implements DatabaseTableInterface<T> {
     final protected DatabaseManager dbClient = new DatabaseManager();
     private String id;
 
-    protected T createEntity(T entity) {
-        this.setId(this.dbClient.getUniqueUUID());
-        return entity;
-    }
     void getEntityById(String table, String id) {
         CSVReader csvReader = new CSVReader();
         this.createObject(csvReader.getEntityDataById(table, id));

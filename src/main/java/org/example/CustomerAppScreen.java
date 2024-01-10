@@ -41,7 +41,8 @@ public class CustomerAppScreen {
         }
     }
 
-    CustomerAppScreen() {}
+    CustomerAppScreen() {
+    }
 
     public void createPanel() {
         this.renderActivityListDisplay();
@@ -707,30 +708,19 @@ public class CustomerAppScreen {
 
         for (Booking booking : bookings) {
             for (BookingActivityService bookingActivityService : booking.getSelectedServices()) {
-                String rawBookingActivityString = bookingActivityService.getId() + "," +
-                        booking.getId() + "," +
-                        bookingActivityService.getActivityService().getId();
+                String rawBookingActivityString = bookingActivityService.getId() + "," + booking.getId() + "," + bookingActivityService.getActivityService().getId();
 
                 rawBookingActivityServices.add(rawBookingActivityString);
             }
 
-            String rawBookingString = booking.getId() + "," +
-                    booking.getActivity().getId() + "," +
-                    booking.getItinerary().getId() + "," +
-                    "false";
+            String rawBookingString = booking.getId() + "," + booking.getActivity().getId() + "," + booking.getItinerary().getId() + "," + "false";
 
             rawBookings.add(rawBookingString);
         }
 
-        String rawLeadAttendeeString = itinerary.getLeadAttendee().getId() + "," +
-                itinerary.getLeadAttendee().getFirstName() + "," +
-                itinerary.getLeadAttendee().getLastName() + "," +
-                itinerary.getId();
+        String rawLeadAttendeeString = itinerary.getLeadAttendee().getId() + "," + itinerary.getLeadAttendee().getFirstName() + "," + itinerary.getLeadAttendee().getLastName() + "," + itinerary.getId();
 
-        String rawItineraryString = itinerary.getId() + "," +
-                itinerary.getNumOfAttendees() + "," +
-                itinerary.getItineraryReference() + "," +
-                itinerary.getLeadAttendee().getId();
+        String rawItineraryString = itinerary.getId() + "," + itinerary.getNumOfAttendees() + "," + itinerary.getItineraryReference() + "," + itinerary.getLeadAttendee().getId();
 
         writer.writeMultipleLinesToTable(rawBookings, "Booking");
         writer.writeMultipleLinesToTable(rawBookingActivityServices, "BookingActivityService");

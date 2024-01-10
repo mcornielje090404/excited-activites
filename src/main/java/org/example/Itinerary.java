@@ -84,7 +84,9 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         return activities;
     }
 
-    public LeadAttendee getLeadAttendee() { return this.leadAttendee; }
+    public LeadAttendee getLeadAttendee() {
+        return this.leadAttendee;
+    }
 
     public String getItineraryReference() {
         return this.itineraryReference;
