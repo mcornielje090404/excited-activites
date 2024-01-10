@@ -15,16 +15,11 @@ public class Booking extends DatabaseTable<Booking> {
         this.fetchItinerary(id);
     }
 
-    public Booking(Activity activity, String id) {
-        this.getEntityById("Booking", id);
-        this.activity = activity;
-        this.fetchItinerary(id);
-    }
-
     public Booking(Itinerary itinerary, String id) {
         this.getEntityById("Booking", id);
         this.itinerary = itinerary;
         this.fetchActivity(id);
+        this.fetchSelectedServices(id);
     }
 
     public Booking(Activity activity, Itinerary itinerary) {
@@ -59,6 +54,20 @@ public class Booking extends DatabaseTable<Booking> {
         this.activity = new Activity(bookingData[activityIdIndex]);
     }
 
+    private void fetchSelectedServices(String id) {
+        CSVReader csvReader = new CSVReader();
+        ArrayList<BookingActivityService> selectedServices = new ArrayList<>();
+        ArrayList<String[]> rawBookingActivityServices = csvReader.getManyNestedEntitiesById("BookingActivityService", id, "bookingId");
+
+
+        for (String[] bookingActivityServiceData : rawBookingActivityServices) {
+            BookingActivityService bookingActivityService = new BookingActivityService(this, bookingActivityServiceData);
+            selectedServices.add(bookingActivityService);
+        }
+
+        this.selectedServices = selectedServices;
+    }
+
     public ArrayList<BookingActivityService> getSelectedServices() {
         return this.selectedServices;
     }
@@ -83,10 +92,6 @@ public class Booking extends DatabaseTable<Booking> {
 
     public Activity getActivity() {
         return this.activity;
-    }
-
-    public boolean getInsuranceIncluded() {
-        return this.insuranceIncluded;
     }
 
     public Itinerary getItinerary() {

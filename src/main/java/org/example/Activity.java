@@ -9,9 +9,7 @@ public class Activity extends DatabaseTable<Activity> {
     private String location;
     private String activityDate;
     private float duration;
-    private boolean insuranceRequired;
     private int insuranceCost;
-    private String activityCode;
 
     public Activity(String id) {
         this.getEntityById("Activity", id);
@@ -30,9 +28,7 @@ public class Activity extends DatabaseTable<Activity> {
         this.location = csvData[4];
         this.activityDate = csvData[5];
         this.duration = Float.parseFloat(csvData[6]);
-        this.insuranceRequired = Boolean.parseBoolean(csvData[7]);
         this.insuranceCost = Integer.parseInt(csvData[8]);
-        this.activityCode = csvData[9];
 
         return this;
     }
@@ -73,15 +69,7 @@ public class Activity extends DatabaseTable<Activity> {
         return this.duration;
     }
 
-    public boolean getInsuranceRequired() {
-        return this.insuranceRequired;
-    }
-
     public int getInsuranceCost() {
         return this.insuranceCost;
-    }
-
-    public String getActivityCode() {
-        return this.activityCode;
     }
 }

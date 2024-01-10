@@ -10,6 +10,11 @@ public class BookingActivityService extends DatabaseTable<BookingActivityService
         this.booking = booking;
     }
 
+    public BookingActivityService(Booking booking, String[] csvData) {
+        this.booking = booking;
+        this.createObject(csvData);
+    }
+
     @Override
     public BookingActivityService createObject(String[] csvData) {
         this.setId(csvData[0]);

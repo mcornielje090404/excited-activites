@@ -2,19 +2,18 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class MainMenu {
     Container contentPane;
     SpringLayout layout = new SpringLayout();
     SwitchContentPane customerAppButtonActionListener;
-    SwitchContentPane adminAppButtonActionEvent;
+    SwitchContentPane adminAppButtonActionListener;
 
 
     MainMenu(Container contentPane, SwitchContentPane customerAppButtonActionListener, SwitchContentPane adminAppButtonActionListener) {
         this.contentPane = contentPane;
         this.customerAppButtonActionListener = customerAppButtonActionListener;
-        this.adminAppButtonActionEvent = adminAppButtonActionListener;
+        this.adminAppButtonActionListener = adminAppButtonActionListener;
         contentPane.setLayout(layout);
     }
 
@@ -35,5 +34,6 @@ public class MainMenu {
         layout.putConstraint(SpringLayout.VERTICAL_CENTER, adminAppButton, -50, SpringLayout.VERTICAL_CENTER, contentPane);
 
         customerAppButton.addActionListener(customerAppButtonActionListener);
+        adminAppButton.addActionListener(adminAppButtonActionListener);
     }
 }

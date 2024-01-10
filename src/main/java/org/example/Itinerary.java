@@ -25,6 +25,12 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         this.numOfAttendees = 0;
     }
 
+    public Itinerary(String[] csvData) {
+        this.createObject(csvData);
+        this.leadAttendee = new LeadAttendee(this, csvData[3]);
+        this.fetchBookings(csvData[0]);
+    }
+
     @Override
     public Itinerary createObject(String[] csvData) {
         this.setId(csvData[0]);
@@ -38,7 +44,7 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         return this;
     }
 
-    private void fetchBookings(String id) {
+    public void fetchBookings(String id) {
         CSVReader csvReader = new CSVReader();
         ArrayList<Booking> bookings = new ArrayList<>();
         ArrayList<String[]> rawBookings = csvReader.getManyNestedEntitiesById("Booking", id, "itineraryId");
@@ -78,7 +84,9 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         return activities;
     }
 
-    public LeadAttendee getLeadAttendee() { return this.leadAttendee; }
+    public LeadAttendee getLeadAttendee() {
+        return this.leadAttendee;
+    }
 
     public String getItineraryReference() {
         return this.itineraryReference;

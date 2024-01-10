@@ -41,11 +41,14 @@ public class CustomerAppScreen {
         }
     }
 
-    public void createPanel() {
-        this.renderActivityListDiplsay();
+    CustomerAppScreen() {
     }
 
-    public void renderActivityListDiplsay() {
+    public void createPanel() {
+        this.renderActivityListDisplay();
+    }
+
+    public void renderActivityListDisplay() {
         contentPane.removeAll();
         this.getHeaderButtons(mainMenuButtonActionListener, false);
 
@@ -109,7 +112,7 @@ public class CustomerAppScreen {
     private void renderSelectedActivityDisplay() {
         contentPane.removeAll();
 
-        this.getHeaderButtons(e -> renderActivityListDiplsay(), false);
+        this.getHeaderButtons(e -> renderActivityListDisplay(), false);
 
         JLabel label = new JLabel(selectedActivity.getTitle());
         label.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -204,17 +207,17 @@ public class CustomerAppScreen {
 
             itinerary.addBooking(booking);
 
-            double basketTotal = getDiscountedTotal();
+            double basketTotal = getDiscountedTotal(itinerary);
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.UK);
             basketButton.setText(currencyFormatter.format(basketTotal / 100));
 
-            this.renderActivityListDiplsay();
+            this.renderActivityListDisplay();
         });
 
         return addToBasketButton;
     }
 
-    private int getBasketValueWithoutDiscount() {
+    private int getBasketValueWithoutDiscount(Itinerary itinerary) {
         ArrayList<Booking> bookings = itinerary.getBookings();
 
         int total = 0;
@@ -290,14 +293,13 @@ public class CustomerAppScreen {
     private void renderBasketDisplay() {
         contentPane.removeAll();
 
-        this.getHeaderButtons(e -> renderActivityListDiplsay(), true);
-
+        this.getHeaderButtons(e -> renderActivityListDisplay(), true);
         boolean showBasket = !itinerary.getBookings().isEmpty();
 
         if (showBasket) {
             ArrayList<Booking> bookings = itinerary.getBookings();
 
-            double totalCost = getDiscountedTotal();
+            double totalCost = getDiscountedTotal(itinerary);
 
             JButton buyButton = new JButton("Buy now");
             buyButton.setPreferredSize(new Dimension(150, 40));
@@ -313,7 +315,7 @@ public class CustomerAppScreen {
                 JOptionPane.showMessageDialog(null, "Thank you for your purchase!");
                 itinerary = new Itinerary();
                 basketButton.setText("£0.00");
-                renderActivityListDiplsay();
+                renderActivityListDisplay();
             });
 
             JLabel totalCostLabel = new JLabel("Total Cost: " + NumberFormat.getCurrencyInstance(Locale.UK).format(totalCost / 100));
@@ -383,8 +385,8 @@ public class CustomerAppScreen {
         contentPane.repaint();
     }
 
-    private double getDiscountedTotal() {
-        int total = getBasketValueWithoutDiscount();
+    public double getDiscountedTotal(Itinerary itinerary) {
+        int total = getBasketValueWithoutDiscount(itinerary);
 
         ArrayList<Booking> bookings = itinerary.getBookings();
 
@@ -528,7 +530,7 @@ public class CustomerAppScreen {
             firstNameErrorLabel.setVisible(false);
             lastNameErrorLabel.setVisible(false);
 
-            if (firstNameTextField.getText().length() > 0 && lastNameTextField.getText().length() > 0) {
+            if (!firstNameTextField.getText().isEmpty() && !lastNameTextField.getText().isEmpty()) {
                 LeadAttendee leadAttendee = new LeadAttendee(itinerary, firstNameTextField.getText(), lastNameTextField.getText());
 
                 itinerary.setNumOfAttendees(numAttendees.get());
@@ -549,8 +551,8 @@ public class CustomerAppScreen {
 
                 NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.UK);
 
-                totalCostLabel.setText("Total Cost: " + currencyFormatter.format(getDiscountedTotal() / 100));
-                basketButton.setText(currencyFormatter.format(getDiscountedTotal() / 100));
+                totalCostLabel.setText("Total Cost: " + currencyFormatter.format(getDiscountedTotal(itinerary) / 100));
+                basketButton.setText(currencyFormatter.format(getDiscountedTotal(itinerary) / 100));
 
                 nameDisplayLabel.setVisible(true);
                 numAttendeesDisplayLabel.setVisible(true);
@@ -560,11 +562,11 @@ public class CustomerAppScreen {
                 contentPane.revalidate();
                 contentPane.repaint();
             } else {
-                if (firstNameTextField.getText().length() == 0) {
+                if (firstNameTextField.getText().isEmpty()) {
                     firstNameErrorLabel.setVisible(true);
                 }
 
-                if (lastNameTextField.getText().length() == 0) {
+                if (lastNameTextField.getText().isEmpty()) {
                     lastNameErrorLabel.setVisible(true);
                 }
             }
@@ -661,7 +663,7 @@ public class CustomerAppScreen {
         File backIconFile = new File("images/back-arrow.png");
         JButton backButton = new JButton("Back");
 
-        if (basketImageFile.exists()) {
+        if (backIconFile.exists()) {
             try {
                 Image backImage = ImageIO.read(backIconFile).getScaledInstance(20, 20, Image.SCALE_SMOOTH);
                 backButton.setIcon(new ImageIcon(backImage));
@@ -706,39 +708,24 @@ public class CustomerAppScreen {
 
         for (Booking booking : bookings) {
             for (BookingActivityService bookingActivityService : booking.getSelectedServices()) {
-                StringBuilder rawBookingActivityString = new StringBuilder();
-                rawBookingActivityString.append(bookingActivityService.getId()).append(",");
-                rawBookingActivityString.append(booking.getId()).append(",");
-                rawBookingActivityString.append(bookingActivityService.getActivityService().getId());
+                String rawBookingActivityString = bookingActivityService.getId() + "," + booking.getId() + "," + bookingActivityService.getActivityService().getId();
 
-                rawBookingActivityServices.add(rawBookingActivityString.toString());
+                rawBookingActivityServices.add(rawBookingActivityString);
             }
 
-            StringBuilder rawBookingString = new StringBuilder();
-            rawBookingString.append(booking.getId()).append(",");
-            rawBookingString.append(booking.getActivity().getId()).append(",");
-            rawBookingString.append(booking.getItinerary().getId()).append(",");
-            rawBookingString.append("false");
+            String rawBookingString = booking.getId() + "," + booking.getActivity().getId() + "," + booking.getItinerary().getId() + "," + "false";
 
-            rawBookings.add(rawBookingString.toString());
+            rawBookings.add(rawBookingString);
         }
 
-        StringBuilder rawLeadAttendeeString = new StringBuilder();
-        rawLeadAttendeeString.append(itinerary.getLeadAttendee().getId()).append(",");
-        rawLeadAttendeeString.append(itinerary.getLeadAttendee().getFirstName()).append(",");
-        rawLeadAttendeeString.append(itinerary.getLeadAttendee().getLastName()).append(",");
-        rawLeadAttendeeString.append(itinerary.getId());
+        String rawLeadAttendeeString = itinerary.getLeadAttendee().getId() + "," + itinerary.getLeadAttendee().getFirstName() + "," + itinerary.getLeadAttendee().getLastName() + "," + itinerary.getId();
 
-        StringBuilder rawItineraryString = new StringBuilder();
-        rawItineraryString.append(itinerary.getId()).append(",");
-        rawItineraryString.append(itinerary.getNumOfAttendees()).append(",");
-        rawItineraryString.append(itinerary.getItineraryReference()).append(",");
-        rawItineraryString.append(itinerary.getLeadAttendee().getId());
+        String rawItineraryString = itinerary.getId() + "," + itinerary.getNumOfAttendees() + "," + itinerary.getItineraryReference() + "," + itinerary.getLeadAttendee().getId();
 
         writer.writeMultipleLinesToTable(rawBookings, "Booking");
         writer.writeMultipleLinesToTable(rawBookingActivityServices, "BookingActivityService");
-        writer.writeLineToTable(rawLeadAttendeeString.toString(), "LeadAttendee");
-        writer.writeLineToTable(rawItineraryString.toString(), "Itinerary");
+        writer.writeLineToTable(rawLeadAttendeeString, "LeadAttendee");
+        writer.writeLineToTable(rawItineraryString, "Itinerary");
     }
 
     private Character getRandomUppercaseCharacter() {
