@@ -293,7 +293,6 @@ public class CustomerAppScreen {
         contentPane.removeAll();
 
         this.getHeaderButtons(e -> renderActivityListDisplay(), true);
-
         boolean showBasket = !itinerary.getBookings().isEmpty();
 
         if (showBasket) {

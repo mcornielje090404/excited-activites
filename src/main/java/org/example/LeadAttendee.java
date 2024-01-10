@@ -10,8 +10,11 @@ public class LeadAttendee extends DatabaseTable<LeadAttendee> {
         this.getEntityById("LeadAttendee", id);
     }
 
-    public LeadAttendee(String id) {
-        this.getEntityById("LeadAttendee", id);
+    public LeadAttendee(Itinerary itinerary, String firstName, String lastName) {
+        this.setId(this.dbClient.getUniqueUUID());
+        this.itinerary = itinerary;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     @Override

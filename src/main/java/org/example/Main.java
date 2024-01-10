@@ -1,18 +1,13 @@
 package org.example;
 
-<<<<<<< Updated upstream
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-=======
 import javax.swing.*;
 import java.awt.*;
 
->>>>>>> Stashed changes
 public class Main {
     public static void main(String[] args) {
+        JFrame frame = new JFrame("App Frame");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-<<<<<<< Updated upstream
-=======
         Container customerScreenContentPane = new Container();
         Container mainMenuContentPane = new Container();
         Container adminScreenContentPane = new Container();
@@ -49,6 +44,5 @@ public class Main {
         };
 
         return new MainMenu(mainMenuContentPane, customerAppButtonActionListener, adminAppButtonActionListener);
->>>>>>> Stashed changes
     }
 }
