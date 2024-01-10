@@ -19,6 +19,21 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         this.fetchBookings(id);
     }
 
+<<<<<<< Updated upstream
+=======
+    public Itinerary() {
+        this.setId(this.dbClient.getUniqueUUID());
+        this.bookings = new ArrayList<>();
+        this.numOfAttendees = 0;
+    }
+
+    public Itinerary(String[] csvData) {
+        this.createObject(csvData);
+        this.leadAttendee = new LeadAttendee(this, csvData[3]);
+        this.fetchBookings(csvData[0]);
+    }
+
+>>>>>>> Stashed changes
     @Override
     public Itinerary createObject(String[] csvData) {
         this.setId(csvData[0]);
@@ -32,8 +47,12 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         return this;
     }
 
+<<<<<<< Updated upstream
     private void fetchBookings(String id) {
         System.out.println("Fetching bookings for itinerary " + id);
+=======
+    public void fetchBookings(String id) {
+>>>>>>> Stashed changes
         CSVReader csvReader = new CSVReader();
         ArrayList<Booking> bookings = new ArrayList<>();
         ArrayList<String[]> rawBookings = csvReader.getManyNestedEntitiesById("Booking", id, "itineraryId");

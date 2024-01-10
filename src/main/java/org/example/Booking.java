@@ -15,16 +15,18 @@ public class Booking extends DatabaseTable<Booking> {
         this.fetchItinerary(id);
     }
 
-    public Booking(Activity activity, String id) {
-        this.getEntityById("Booking", id);
-        this.activity = activity;
-        this.fetchItinerary(id);
-    }
-
     public Booking(Itinerary itinerary, String id) {
         this.getEntityById("Booking", id);
         this.itinerary = itinerary;
         this.fetchActivity(id);
+        this.fetchSelectedServices(id);
+    }
+
+    public Booking(Activity activity, Itinerary itinerary) {
+        this.setId(this.dbClient.getUniqueUUID());
+        this.activity = activity;
+        this.itinerary = itinerary;
+        this.selectedServices = new ArrayList<>();
     }
 
     public Booking createObject(String[] csvData) {
@@ -52,12 +54,44 @@ public class Booking extends DatabaseTable<Booking> {
         this.activity = new Activity(bookingData[activityIdIndex]);
     }
 
-    public Activity getActivity() {
-        return this.activity;
+    private void fetchSelectedServices(String id) {
+        CSVReader csvReader = new CSVReader();
+        ArrayList<BookingActivityService> selectedServices = new ArrayList<>();
+        ArrayList<String[]> rawBookingActivityServices = csvReader.getManyNestedEntitiesById("BookingActivityService", id, "bookingId");
+
+
+        for (String[] bookingActivityServiceData : rawBookingActivityServices) {
+            BookingActivityService bookingActivityService = new BookingActivityService(this, bookingActivityServiceData);
+            selectedServices.add(bookingActivityService);
+        }
+
+        this.selectedServices = selectedServices;
     }
 
-    public boolean getInsuranceIncluded() {
-        return this.insuranceIncluded;
+    public ArrayList<BookingActivityService> getSelectedServices() {
+        return this.selectedServices;
+    }
+
+    public void addSelectedService(BookingActivityService bookingActivityService) {
+        this.selectedServices.add(bookingActivityService);
+    }
+
+    public int getTotalCost() {
+        int totalCost = this.activity.getBaseCost();
+
+        if (this.insuranceIncluded) {
+            totalCost += this.activity.getInsuranceCost();
+        }
+
+        for (BookingActivityService bookingActivityService : this.selectedServices) {
+            totalCost += bookingActivityService.getActivityService().getPrice();
+        }
+
+        return totalCost;
+    }
+
+    public Activity getActivity() {
+        return this.activity;
     }
 
     public Itinerary getItinerary() {
