@@ -27,6 +27,13 @@ public class Booking extends DatabaseTable<Booking> {
         this.fetchActivity(id);
     }
 
+    public Booking(Activity activity, Itinerary itinerary) {
+        this.setId(this.dbClient.getUniqueUUID());
+        this.activity = activity;
+        this.itinerary = itinerary;
+        this.selectedServices = new ArrayList<>();
+    }
+
     public Booking createObject(String[] csvData) {
         this.setId(csvData[0]);
         this.insuranceIncluded = Boolean.parseBoolean(csvData[3]);
@@ -50,6 +57,28 @@ public class Booking extends DatabaseTable<Booking> {
         String[] bookingData = csvReader.getEntityDataById("Booking", id);
 
         this.activity = new Activity(bookingData[activityIdIndex]);
+    }
+
+    public ArrayList<BookingActivityService> getSelectedServices() {
+        return this.selectedServices;
+    }
+
+    public void addSelectedService(BookingActivityService bookingActivityService) {
+        this.selectedServices.add(bookingActivityService);
+    }
+
+    public int getTotalCost() {
+        int totalCost = this.activity.getBaseCost();
+
+        if (this.insuranceIncluded) {
+            totalCost += this.activity.getInsuranceCost();
+        }
+
+        for (BookingActivityService bookingActivityService : this.selectedServices) {
+            totalCost += bookingActivityService.getActivityService().getPrice();
+        }
+
+        return totalCost;
     }
 
     public Activity getActivity() {

@@ -4,18 +4,10 @@ public class BookingActivityService extends DatabaseTable<BookingActivityService
     private Booking booking;
     private ActivityService activityService;
 
-    public BookingActivityService(Booking booking, String id) {
-        this.booking = booking;
-        this.getEntityById("BookingActivityService", id);
-    }
-
-    public BookingActivityService(ActivityService activityService, String id) {
+    public BookingActivityService(ActivityService activityService, Booking booking) {
+        this.setId(this.dbClient.getUniqueUUID());
         this.activityService = activityService;
-        this.getEntityById("BookingActivityService", id);
-    }
-
-    public BookingActivityService(String id) {
-        this.getEntityById("BookingActivityService", id);
+        this.booking = booking;
     }
 
     @Override
@@ -31,5 +23,9 @@ public class BookingActivityService extends DatabaseTable<BookingActivityService
         }
 
         return this;
+    }
+
+    public ActivityService getActivityService() {
+        return this.activityService;
     }
 }

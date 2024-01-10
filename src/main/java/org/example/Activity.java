@@ -1,6 +1,5 @@
 package org.example;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 
 public class Activity extends DatabaseTable<Activity> {
@@ -18,6 +17,10 @@ public class Activity extends DatabaseTable<Activity> {
         this.getEntityById("Activity", id);
     }
 
+    public Activity(String[] csvData) {
+        this.createObject(csvData);
+    }
+
     @Override
     public Activity createObject(String[] csvData) {
         this.setId(csvData[0]);
@@ -32,18 +35,6 @@ public class Activity extends DatabaseTable<Activity> {
         this.activityCode = csvData[9];
 
         return this;
-    }
-
-    public ArrayList<Booking> getBookings() {
-        CSVReader csvReader = new CSVReader();
-        ArrayList<Booking> bookings = new ArrayList<>();
-        ArrayList<String[]> rawBookings = csvReader.getManyNestedEntitiesById("Booking", this.getId(), "activityId");
-
-        for (String[] bookingData : rawBookings) {
-            bookings.add(new Booking(this, bookingData[0]));
-        }
-
-        return bookings;
     }
 
     public ArrayList<ActivityService> getServices() {

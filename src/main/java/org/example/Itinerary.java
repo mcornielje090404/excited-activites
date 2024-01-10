@@ -19,6 +19,12 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         this.fetchBookings(id);
     }
 
+    public Itinerary() {
+        this.setId(this.dbClient.getUniqueUUID());
+        this.bookings = new ArrayList<>();
+        this.numOfAttendees = 0;
+    }
+
     @Override
     public Itinerary createObject(String[] csvData) {
         this.setId(csvData[0]);
@@ -33,7 +39,6 @@ public class Itinerary extends DatabaseTable<Itinerary> {
     }
 
     private void fetchBookings(String id) {
-        System.out.println("Fetching bookings for itinerary " + id);
         CSVReader csvReader = new CSVReader();
         ArrayList<Booking> bookings = new ArrayList<>();
         ArrayList<String[]> rawBookings = csvReader.getManyNestedEntitiesById("Booking", id, "itineraryId");
@@ -47,6 +52,33 @@ public class Itinerary extends DatabaseTable<Itinerary> {
         this.bookings = bookings;
     }
 
+    public void addBooking(Booking booking) {
+        this.bookings.add(booking);
+    }
+
+    public void setNumOfAttendees(int numOfAttendees) {
+        this.numOfAttendees = numOfAttendees;
+    }
+
+    public void setLeadAttendee(LeadAttendee leadAttendee) {
+        this.leadAttendee = leadAttendee;
+    }
+
+    public void setItineraryReference(String itineraryReference) {
+        this.itineraryReference = itineraryReference;
+    }
+
+    public ArrayList<Activity> getAllActivities() {
+        ArrayList<Activity> activities = new ArrayList<>();
+
+        for (Booking booking : this.bookings) {
+            activities.add(booking.getActivity());
+        }
+
+        return activities;
+    }
+
+    public LeadAttendee getLeadAttendee() { return this.leadAttendee; }
 
     public String getItineraryReference() {
         return this.itineraryReference;
